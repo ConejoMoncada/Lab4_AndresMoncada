@@ -58,9 +58,13 @@ public abstract class Pieza {
         this.columna = columna;
     }
 
+    public char getSimbolo() {
+        return simbolo;
+    }
+
     @Override
     public String toString() {
         return color + ", material: " + material + '}';
     }
-    public abstract void mover(int f,int c)throws MovimientoMalo;
+    public abstract char[][] mover(int f,int c, char t[][])throws MovimientoMalo;
 }

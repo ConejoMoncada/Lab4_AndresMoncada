@@ -7,6 +7,8 @@ package lab4_andresmoncada;
 
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -16,6 +18,8 @@ public class Lab4_AndresMoncada {
 
     static ArrayList<Jugador> jugadores = new ArrayList();
     static Scanner sc = new Scanner(System.in);
+    static ArrayList<Pieza> piezas;
+    static char tablero[][] = new char[10][10];
     /**
      * @param args the command line arguments
      */
@@ -99,6 +103,90 @@ public class Lab4_AndresMoncada {
         }
     }
     public static void inicio(){
-        
+        piezas = new ArrayList();
+        for (int i = 0; i < 10; i++) {
+            for (int j = 0; j < 10; j++) {
+                tablero[i][j] = '°';
+            }
+        }
+        piezas.add(new Caballero("negro","madera",0,0));
+        piezas.add(new Caballero("negro","madera",1,4));
+        piezas.add(new Caballero("negro","madera",0,9));
+        piezas.add(new Caballero("blanco","madera",9,0));
+        piezas.add(new Caballero("blanco","madera",8,5));
+        piezas.add(new Caballero("blanco","madera",9,9));
+        piezas.add(new Mago("negro","madera",0,5));
+        piezas.add(new Mago("blanco","madera",9,4));
+        piezas.add(new Arquero("negro","madera",1,2));
+        piezas.add(new Arquero("negro","madera",0,3));
+        piezas.add(new Arquero("negro","madera",0,6));
+        piezas.add(new Arquero("negro","madera",1,7));
+        piezas.add(new Arquero("blanco","madera",8,2));
+        piezas.add(new Arquero("blanco","madera",9,3));
+        piezas.add(new Arquero("blanco","madera",9,6));
+        piezas.add(new Arquero("blanco","madera",8,7));
+        piezas.add(new Rey("negro","madera",0,4));
+        piezas.add(new Rey("blanco","madera",9,5));
+        for (Pieza p : piezas) {
+            tablero[p.getFila()][p.getColumna()] = p.getSimbolo();
+        }
+        System.out.println("Blanco son las fichas de abajo y negro las de arriba");
+        jugar();
+    }
+    public static void jugar(){
+        boolean v = true;
+        boolean t = true;
+        //t:  turno
+        int f; 
+        int c;
+        int i, i2;
+        while(v){
+            imprimir();
+            if(t)
+                System.out.println("Turno de blanco.");
+            else
+                System.out.println("Turno de negro.");
+            System.out.print("Ingrese la fila de la pieza que quiere mover: ");
+            f = sc.nextInt();
+            System.out.print("Ingrese la columna de la pieza que quiere mover: ");
+            c = sc.nextInt();
+            try {
+                i = validar(f, c, t);
+                v = false;
+            } catch (FueraDeTablero fuera) {
+                System.out.println(fuera.getMessage());
+                System.out.println("");
+            } catch (SeleccionMala sm) {
+                System.out.println(sm.getMessage());
+                System.out.println("");
+            }
+        }
+    }
+    public static void imprimir(){
+        for (int i = 0; i < 10; i++) {
+            for (int j = 0; j < 10; j++) {
+                System.out.print(tablero[i][j] + " ");
+            }
+            System.out.println("");
+        }
+    }
+    public static int validar(int f, int c, boolean t) throws FueraDeTablero, SeleccionMala{
+        if(f > 9 || c > 9)
+            throw new FueraDeTablero("Fila/Columna fuera del tablero");
+        boolean v = false;
+        int i = 0;
+        for (Pieza p : piezas) {
+            if (t)
+                v = (p.getFila() == f && p.getColumna() == c && p.getColor().equals("blanco"));
+            else
+                v = (p.getFila() == f && p.getColumna() == c && p.getColor().equals("negro"));
+            if(v){
+                break;
+            }
+            i++;
+        }
+        if(!v)
+            throw new SeleccionMala("No se seleccionaron coordenadas con una pieza del color correcto");
+        return i;
     }
 }

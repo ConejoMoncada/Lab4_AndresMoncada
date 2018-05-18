@@ -26,8 +26,8 @@ public class Rey extends Pieza{
     }
 
     @Override
-    public void mover(int f, int c) throws MovimientoMalo{
-        
+    public char[][] mover(int f, int c, char t[][]) throws MovimientoMalo{
+        return t;
     }
     
 }
