@@ -134,14 +134,15 @@ public class Lab4_AndresMoncada {
         jugar();
     }
     public static void jugar(){
-        boolean v = true;
+        sc.useDelimiter("\\n");
+        char cont = 's';
         boolean t = true;
         //t:  turno
         int f; 
         int c;
-        int i = 0, i2 = 20;
-        while(v){
-            imprimir();
+        int i = 0;
+        imprimir();
+        while(cont == 's' || cont == 'S'){
             if(t)
                 System.out.println("Turno de blanco.");
             else
@@ -157,12 +158,12 @@ public class Lab4_AndresMoncada {
                 System.out.print("Ingrese la columna a la que se quiere mover: ");
                 c = sc.nextInt();
                 validarmover(f,c,i);
-                piezas.get(i).mover(f, c, tablero);
-                i2 = revisarcomer(t);
-                if(i2 != 20){
-                    piezas.remove(i2);
-                }
-                v = false;
+                tablero = piezas.get(i).mover(f, c, tablero);
+                revisarcomer(t,i);
+                t = !t;
+                imprimir();
+                System.out.print("Continuar? [s/n]: ");
+                cont = sc.next().charAt(0);
             } catch (FueraDeTablero fuera) {
                 System.out.println(fuera.getMessage());
                 System.out.println("");
@@ -251,11 +252,14 @@ public class Lab4_AndresMoncada {
         if (!v)
             throw new MovimientoMalo("Movimiento no valido");
     }
-    public static int revisarcomer(boolean t){
-        int i2 = 0;
-        for (Pieza p : piezas) {
-            
+    public static void revisarcomer(boolean t, int i){
+        for (int j = 0; j < piezas.size(); j++) {
+            if(i != j){
+                if(piezas.get(j).getFila() == piezas.get(i).getFila() && piezas.get(j).getColumna() == piezas.get(i).getColumna()){
+                    piezas.remove(j);
+                    break;
+                }
+            }
         }
-        return i2;
     }
 }

@@ -27,6 +27,8 @@ public class Mago extends Pieza{
 
     @Override
     public char[][] mover(int f, int c, char t[][]){
+        t[f][c] = 'M';
+        t[fila][columna] = '°';
         return t;
     }
     

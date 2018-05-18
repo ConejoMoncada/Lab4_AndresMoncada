@@ -27,6 +27,8 @@ public class Caballero extends Pieza{
 
     @Override
     public char[][] mover(int f, int c, char t[][]){
+        t[f][c] = 'C';
+        t[fila][columna] = '°';
         return t;
     }
     

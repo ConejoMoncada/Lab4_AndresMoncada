@@ -27,6 +27,8 @@ public class Arquero extends Pieza{
 
     @Override
     public char[][] mover(int f, int c, char t[][]){
+        t[f][c] = 'A';
+        t[fila][columna] = '°';
         return t;
     }
     
