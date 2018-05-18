@@ -229,7 +229,7 @@ public class Lab4_AndresMoncada {
                 v = true;
             else
                 v = false;
-        }else if(piezas.get(i) instanceof Mago || piezas.get(i) instanceof Mago){
+        }else if(piezas.get(i) instanceof Mago || piezas.get(i) instanceof Arquero){
             if((f != piezas.get(i).getFila() && c == piezas.get(i).getColumna()) || (f == piezas.get(i).getFila() && c != piezas.get(i).getColumna())
                     || (Math.abs(f-piezas.get(i).getFila()) ==  Math.abs(c - piezas.get(i).getColumna()))){
                 if(tablero[f][c] == '°')
