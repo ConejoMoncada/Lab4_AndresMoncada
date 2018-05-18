@@ -206,6 +206,8 @@ public class Lab4_AndresMoncada {
     public static void validarmover(int f, int c, int i) throws FueraDeTablero, MovimientoMalo{
         if(f < 0 || f > 9 || c < 0 || c > 9)
             throw new FueraDeTablero("Fila/Columna fuera del tablero");
+        if(f == piezas.get(i).getFila() && c == piezas.get(i).getColumna())
+            throw new MovimientoMalo("Se debe mover para hacer el turno");
         boolean v = true;
         if(piezas.get(i) instanceof Caballero){
             if(!((f == piezas.get(i).getFila() + 1 && c == piezas.get(i).getColumna()) || (f == piezas.get(i).getFila() - 1 && c == piezas.get(i).getColumna())

@@ -29,6 +29,8 @@ public class Arquero extends Pieza{
     public char[][] mover(int f, int c, char t[][]){
         t[f][c] = 'A';
         t[fila][columna] = '°';
+        fila = f;
+        columna = c;
         return t;
     }
     
