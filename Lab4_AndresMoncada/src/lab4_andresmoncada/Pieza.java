@@ -14,6 +14,7 @@ public abstract class Pieza {
     protected String material;
     protected int fila;
     protected int columna;
+    protected char simbolo;
 
     public Pieza() {
     }
@@ -61,5 +62,5 @@ public abstract class Pieza {
     public String toString() {
         return color + ", material: " + material + '}';
     }
-    public abstract void comer();
+    public abstract void mover(int f,int c);
 }

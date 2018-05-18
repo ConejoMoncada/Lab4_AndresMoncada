@@ -6,24 +6,46 @@
 package lab4_andresmoncada;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
 /**
  *
  * @author Dell
  */
 public class Lab4_AndresMoncada {
-    static ArrayList<Jugador> jugadores = new ArrayList();
 
+    static ArrayList<Jugador> jugadores = new ArrayList();
+    static Scanner sc = new Scanner(System.in);
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
         boolean v = true;
+        int menu;
         while(v){
             System.out.println("1. Administracion de jugadores");
             System.out.println("2. Iniciar juego");
             System.out.println("3. Salir");
+            System.out.print("Ingrese una opcion: ");
+            menu = sc.nextInt();
+            switch (menu){
+                case 1:
+                    usuarios();
+                    break;
+                case 2:
+                    inicio();
+                case 3:
+                    v = false;
+                    break;
+                default:
+                    System.out.println("Opcion no valida.");
+            }
         }
     }
-    
+    public static void usuarios(){
+        
+    }
+    public static void inicio(){
+        
+    }
 }
