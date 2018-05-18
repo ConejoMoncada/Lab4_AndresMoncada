@@ -30,9 +30,11 @@ public class Lab4_AndresMoncada {
             menu = sc.nextInt();
             switch (menu){
                 case 1:
+                    System.out.println("");
                     usuarios();
                     break;
                 case 2:
+                    System.out.println("");
                     inicio();
                 case 3:
                     v = false;
@@ -43,7 +45,58 @@ public class Lab4_AndresMoncada {
         }
     }
     public static void usuarios(){
-        
+        sc.useDelimiter("\\n");
+        int menu;
+        boolean v = true;
+        while(v){
+            System.out.println("1. Agregar usuario");
+            System.out.println("2. Listar usuarios");
+            System.out.println("3. Eliminar usuario");
+            System.out.println("4. Regresar");
+            System.out.print("Escoja na opcion: ");
+            menu = sc.nextInt();
+            switch (menu){
+                case 1:
+                    System.out.print("Ingrese el nombre del jugador: ");
+                    String nombre = sc.next();
+                    System.out.print("Ingrese un nombre de usuario: ");
+                    String usuario = sc.next();
+                    System.out.print("Ingrese su lugar de nacimiento: ");
+                    String lnacimiento = sc.next();
+                    System.out.print("Ingrese su edad: ");
+                    int edad = sc.nextInt();
+                    System.out.print("Ingrese su sexo: ");
+                    char sexo = sc.next().charAt(0);
+                    jugadores.add(new Jugador(nombre,usuario,lnacimiento,edad,sexo));
+                    break;
+                case 2:
+                    for (Jugador j : jugadores) {
+                        System.out.println(j.toString());
+                    }
+                    break;
+                case 3:
+                    int i = 0;
+                    for (Jugador j : jugadores) {
+                        System.out.println(i+". "+j.toString());
+                        i++;
+                    }
+                    System.out.print("Ingrese el indice del jugador a eliminar: ");
+                    i = sc.nextInt();
+                    try {
+                        jugadores.remove(i);
+                        System.out.println("Eliminado");
+                    } catch (IndexOutOfBoundsException e) {
+                        System.out.println("No hay un jugador con ese indice");
+                    }
+                    break;
+                case 4:
+                    v = false;
+                    break;
+                default:
+                    System.out.println("Opcion no valida.");
+            }
+            System.out.println("");
+        }
     }
     public static void inicio(){
         

@@ -62,5 +62,5 @@ public abstract class Pieza {
     public String toString() {
         return color + ", material: " + material + '}';
     }
-    public abstract void mover(int f,int c);
+    public abstract void mover(int f,int c)throws MovimientoMalo;
 }

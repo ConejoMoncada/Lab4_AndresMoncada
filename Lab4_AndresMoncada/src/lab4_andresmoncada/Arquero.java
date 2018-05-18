@@ -9,20 +9,20 @@ package lab4_andresmoncada;
  *
  * @author Dell
  */
-public class Caballero extends Pieza{
+public class Arquero extends Pieza{
 
-    public Caballero() {
-        simbolo = 'C';
+    public Arquero() {
+        simbolo = 'A';
     }
 
-    public Caballero(String color, String material, int fila, int columna) {
+    public Arquero(String color, String material, int fila, int columna) {
         super(color, material, fila, columna);
-        simbolo = 'C';
+        simbolo = 'A';
     }
 
     @Override
     public String toString() {
-        return "Caballero " + super.toString();
+        return "Arquero " + super.toString();
     }
 
     @Override
