@@ -139,7 +139,7 @@ public class Lab4_AndresMoncada {
         //t:  turno
         int f; 
         int c;
-        int i, i2;
+        int i = 0, i2 = 20;
         while(v){
             imprimir();
             if(t)
@@ -151,13 +151,26 @@ public class Lab4_AndresMoncada {
             System.out.print("Ingrese la columna de la pieza que quiere mover: ");
             c = sc.nextInt();
             try {
-                i = validar(f, c, t);
+                i = validars(f, c, t);
+                System.out.print("Ingrese la fila a la que se quiere mover: ");
+                f = sc.nextInt();
+                System.out.print("Ingrese la columna a la que se quiere mover: ");
+                c = sc.nextInt();
+                validarmover(f,c,i);
+                piezas.get(i).mover(f, c, tablero);
+                i2 = revisarcomer(t);
+                if(i2 != 20){
+                    piezas.remove(i2);
+                }
                 v = false;
             } catch (FueraDeTablero fuera) {
                 System.out.println(fuera.getMessage());
                 System.out.println("");
             } catch (SeleccionMala sm) {
                 System.out.println(sm.getMessage());
+                System.out.println("");
+            }catch (MovimientoMalo mm){
+                System.out.println(mm.getMessage());
                 System.out.println("");
             }
         }
@@ -170,8 +183,8 @@ public class Lab4_AndresMoncada {
             System.out.println("");
         }
     }
-    public static int validar(int f, int c, boolean t) throws FueraDeTablero, SeleccionMala{
-        if(f > 9 || c > 9)
+    public static int validars(int f, int c, boolean t) throws FueraDeTablero, SeleccionMala{
+        if(f < 0 || f > 9 || c < 0 || c > 9)
             throw new FueraDeTablero("Fila/Columna fuera del tablero");
         boolean v = false;
         int i = 0;
@@ -188,5 +201,61 @@ public class Lab4_AndresMoncada {
         if(!v)
             throw new SeleccionMala("No se seleccionaron coordenadas con una pieza del color correcto");
         return i;
+    }
+    public static void validarmover(int f, int c, int i) throws FueraDeTablero, MovimientoMalo{
+        if(f < 0 || f > 9 || c < 0 || c > 9)
+            throw new FueraDeTablero("Fila/Columna fuera del tablero");
+        boolean v = true;
+        if(piezas.get(i) instanceof Caballero){
+            if(!((f == piezas.get(i).getFila() + 1 && c == piezas.get(i).getColumna()) || (f == piezas.get(i).getFila() - 1 && c == piezas.get(i).getColumna())
+                    || (f == piezas.get(i).getFila() && c == piezas.get(i).getColumna() + 1) || (f == piezas.get(i).getFila() && c == piezas.get(i).getColumna() - 1))){
+                if((f == piezas.get(i).getFila() + 2 && c == piezas.get(i).getColumna() + 2) || (f == piezas.get(i).getFila() + 2 && c == piezas.get(i).getColumna() - 2)
+                        || (f == piezas.get(i).getFila() - 2 && c == piezas.get(i).getColumna() + 2) || (f == piezas.get(i).getFila() - 2 && c == piezas.get(i).getColumna() - 2)
+                        || (f == piezas.get(i).getFila() + 2 && c == piezas.get(i).getColumna()) || (f == piezas.get(i).getFila() - 2 && c == piezas.get(i).getColumna())
+                        || (f == piezas.get(i).getFila() && c == piezas.get(i).getColumna() + 2) || (f == piezas.get(i).getFila() && c == piezas.get(i).getColumna() - 2)){
+                    v = false;
+                    for (int j = 0; j < piezas.size(); j++) {
+                        if(j != i){
+                            if(piezas.get(j).getFila() == f && piezas.get(j).getColumna() == c && !piezas.get(j).getColor().equals(piezas.get(i).getColor())){
+                                v = true;
+                                break;
+                            }
+                        }
+                    }
+                }else
+                    v = false;
+            }else if(tablero[f][c] == '°')
+                v = true;
+            else
+                v = false;
+        }else if(piezas.get(i) instanceof Mago || piezas.get(i) instanceof Mago){
+            if((f != piezas.get(i).getFila() && c == piezas.get(i).getColumna()) || (f == piezas.get(i).getFila() && c != piezas.get(i).getColumna())
+                    || (Math.abs(f-piezas.get(i).getFila()) ==  Math.abs(c - piezas.get(i).getColumna()))){
+                if(tablero[f][c] == '°')
+                    v = true;
+                else{
+                    v = false;
+                    for (int j = 0; j < piezas.size(); j++) {
+                        if(j != i){
+                            if(piezas.get(j).getFila() == f && piezas.get(j).getColumna() == c && !piezas.get(j).getColor().equals(piezas.get(i).getColor())){
+                                v = true;
+                                break;
+                            }
+                        }
+                    }
+                }
+            }else
+                v = false;
+        }else
+            throw new MovimientoMalo("El rey no se mueve");
+        if (!v)
+            throw new MovimientoMalo("Movimiento no valido");
+    }
+    public static int revisarcomer(boolean t){
+        int i2 = 0;
+        for (Pieza p : piezas) {
+            
+        }
+        return i2;
     }
 }

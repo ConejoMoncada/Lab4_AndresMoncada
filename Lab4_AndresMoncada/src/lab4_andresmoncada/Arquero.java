@@ -26,7 +26,7 @@ public class Arquero extends Pieza{
     }
 
     @Override
-    public char[][] mover(int f, int c, char t[][]) throws MovimientoMalo{
+    public char[][] mover(int f, int c, char t[][]){
         return t;
     }
     
